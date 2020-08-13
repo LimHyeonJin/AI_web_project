@@ -13,7 +13,7 @@ function call_ajax() {
             async: true, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
             url: "http://seoji.nl.go.kr/landingPage/SearchApi.do?result_style=json&cert_key=de1cea5deb24a880b49386fde67eabff5322674203dde744fd9a13bbc56fb7ab&page_no=1&page_size=50&deposit_yn=Y&title="+ key,
             type: "GET",
-            timeout: 3000,
+
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
             success: function (result) {   // 서버가 주는 데이터 : result
                 $.each(result.docs, function (idx,item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
