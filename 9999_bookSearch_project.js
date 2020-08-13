@@ -8,37 +8,40 @@ function call_ajax() {
         // data : 서버 프로그램에게 넘겨줄 데이터들...
         $("tbody").empty()
         var key = $("input[type=text]").val()
-        var key_url = encodeURI(key)
+        // var key_url = encodeURI(key)
         $.ajax({
-            async: true, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://seoji.nl.go.kr/landingPage/SearchApi.do?result_style=json&cert_key=de1cea5deb24a880b49386fde67eabff5322674203dde744fd9a13bbc56fb7ab&page_no=1&page_size=50&deposit_yn=Y&title="+ key,
+            async: true,
+            url: "https://dapi.kakao.com/v3/search/book?target=title",
             type: "GET",
             timeout: 3000,
-            dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
-            success: function (result) {   // 서버가 주는 데이터 : result
-                $.each(result.docs, function (idx,item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
+            data: {query: key, size: 50},
+            dataType: "json",
+            headers: {Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9"},
+            success: function (result) {
+                $.each(result.documents, function (idx,item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
                     var tr = $("<tr></tr>")
 
-                    var ISBNTd = $("<td></td>").text(item.EA_ISBN)
+                    var isbn = item.isbn.slice(-13)
+                    var ISBNTd = $("<td></td>").text(isbn)
 
                     var imgTd = $("<td></td>")
-                    var img = $("<img \>").attr({"src": item.TITLE_URL, "width": "200"})  //<img src= ~~~>
+                    var img = $("<img \>").attr({"src": item.thumbnail, "width": "200"})  //<img src= ~~~>
                     imgTd.append(img)
 
-                    var titleTd = $("<td></td>").text(item.TITLE)
-                    var authorTd = $("<td></td>").text(item.AUTHOR)
-                    var PbDtTd = $("<td></td>").text(item.PUBLISH_PREDATE)
-                    var pageTd = $("<td></td>").text(item.PAGE)
+                    var titleTd = $("<td></td>").text(item.title)
+                    var authorTd = $("<td></td>").text(item.authors)
+                    var PbDtTd = $("<td></td>").text(item.datetime.substring(0,10))
 
 
-                    var delTd = $("<td></td>")
-                    var delBtn = $("<input \>").attr({type :"button",value :"상세정보"})
-                    delBtn.on("click",function () {
+
+                    var infoTd = $("<td></td>")
+                    var infoBtn = $("<input \>").attr({type :"button",value :"상세정보"})
+                    infoBtn.on("click",function () {
                         // 현재 클릭된 버튼에 대한 책 정보를 찾아서 삭제.
                         // this : 현재 이벤트가 발생된 객체를 지칭.
-                        infonaru(item.TITLE, item.EA_ISBN)
+                        infonaru(item.title, isbn)
                     }) // "(click)"할때 이벤트 처리(함수)
-                    delTd.append(delBtn)
+                    infoTd.append(infoBtn)
 
 
                     tr.append(ISBNTd)
@@ -46,9 +49,9 @@ function call_ajax() {
                     tr.append(titleTd)
                     tr.append(authorTd)
                     tr.append(PbDtTd)
-                    tr.append(pageTd)
 
-                    tr.append(delTd)
+
+                    tr.append(infoTd)
 
                     $("tbody").append(tr)
                 })
@@ -109,26 +112,3 @@ function infonaru(lib_name, ISBN){
         },
     })
 }
-
-
-function call_API(movieNm) {
-    var img_url
-    $.ajax({
-        async: false,
-        url: "https://dapi.kakao.com/v3/search/book?target=title",
-        type: "GET",
-        timeout: 3000,
-        data: {query: movieNm + " 영화", size: 50},
-        dataType: "json",
-        headers: {Authorization: "KakaoAK a810727b39e6ad7f1b151bab4e2c3de2"},
-        success: function (result) {
-            img_url = result.documents[0].image_url
-        },
-        error: function () {
-            img_url = "image/no_img.jpg"
-        }
-
-    })
-    return img_url
-}
-
