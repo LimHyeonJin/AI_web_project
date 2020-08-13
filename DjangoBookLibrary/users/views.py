@@ -57,7 +57,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     form_class = ProfileUpdateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('UserProfile')
-    success_message = "Now you photo is updated"
+    success_message = "Now you profile is updated"
 
     def form_valid(self, form):
         if 'image' in self.request.FILES:
