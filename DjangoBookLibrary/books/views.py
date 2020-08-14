@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -11,12 +12,14 @@ from django.views.generic import (
     UpdateView)
 
 from .forms import (
-    CommentForm)
+    CommentForm,
+    CommentUpdateForm
+)
 
 from .models import (
     Book,
     BookComment,
-    BookReview,
+    BookReview
 )
 
 # Create your views here.
@@ -82,6 +85,39 @@ def login_to_comment_redirect(request, slug):
     return redirect('bookDetail', slug=slug)
 
 
+
+class CommentUpdateView(FormMixin, DetailView):
+    login_url = "login"
+    form_class = CommentUpdateForm
+    template_name = 'book/book_detail.html'
+    success_url = reverse_lazy('comment_update')
+
+    def form_valid(self, form):
+        self.request.book.text = self.request.POST['comment']
+        self.request.book.user = self.request.POST['user']
+        self.request.book.text.save()
+        return super().form_valid(form)
+
+    def get_initial(self):
+        initial = super(CommentUpdateView, self).get_initial()
+        initial['username'] = self.request.user.username
+        initial['email'] = self.request.user.email
+        return initial
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def rate_book_view(request, slug, rating):
     try:
         b = Book.objects.get(slug=slug)
@@ -91,11 +127,11 @@ def rate_book_view(request, slug, rating):
             b.last_rating = b.calc_rating
             b.save()
             messages.success(
-                request, f'You rated a book: {b.title}')
+                request, 'You rated a book: {b.title}')
 
         else:
             messages.warning(
-                request, f'You already rated this book')
+                request, 'You already rated this book')
         return redirect('bookDetail', slug=b.slug)
     except Book.DoesNotExist:
         raise Http404("Book is unavailable")

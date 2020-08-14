@@ -35,8 +35,9 @@
                 {{ form|crispy }}
                 <button type="submit" class="btn btn-success">Add comment</button>
             </form>
+
             {% else %}
-            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-primary btn-xs">Add
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-success btn-xs">Add
                     comment (login)</button></a>
             {% endif %}
 
@@ -47,6 +48,10 @@
             <div>
                 <h6><strong>{{ comment.user.username }}</strong></h6>
                 <h6 class="comment_text">{{ comment.text }}</h6>
+<!--                <input tye= value... >-->
+                <button type="submit" class="btn btn-default">Modify your comment</button>
+
+
             </div>
             <hr class="my-4">
             {% endfor %}

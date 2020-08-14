@@ -6,7 +6,6 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import (
     CreateView,
     FormView,
@@ -20,7 +19,7 @@ from .forms import (
 # Create your views here.
 
 
-class SignUpView(SuccessMessageMixin, CreateView):
+class SignUpView(CreateView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('login')
     template_name = 'users/signup.html'
@@ -31,7 +30,7 @@ class UserDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'users/user_detail.html'
 
 
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
+class UserUpdateView(LoginRequiredMixin, FormView):
     login_url = "login"
     form_class = UserUpdateForm
     p_form = ProfileUpdateForm()
@@ -52,7 +51,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         return initial
 
 
-class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, FormView):
+class ProfileUpdateView(LoginRequiredMixin, FormView):
     login_url = "login"
     form_class = ProfileUpdateForm
     template_name = 'users/user_form.html'
