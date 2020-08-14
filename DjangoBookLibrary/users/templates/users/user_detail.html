@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+
+        <div class="username">
+            <h4>
+                <strong>{{ user.username }}</strong>
+            </h4>
+            <a href="{% url 'UserUpdate' %}"><button class="btn btn-success profile_buttons">Edit my profile</button></a>
+
+        </div>
+        <div class="profile_info">
+            <br>
+            <p><strong>Join date</strong> <br>{{ user.date_joined|date:"F j, Y" }}</p>
+            <p><strong>Last login date </strong><br>{{ user.last_login|date:"F j, Y" }}</p>
+            <p><strong>Email </strong><br>{{ user.email }}</p>
+        </div>
+
+    </div>
+
+    <div class="col-md-9">
+        <h2>Your books:</h2>
+        <table style="width:100%" id="books">
+            <tr>
+                <th>Title</th>
+            </tr>
+            {% for book in user.books.all %}
+            <tr>
+                <td>{{ book.book.title }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+</div>
+{% endblock content %}
