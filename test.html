@@ -84,133 +84,77 @@
 
 </div>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a25e3f461e21becf81f9f64bc8294ee&libraries=services,clusterer,drawing"></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script>
+    function positions(){
+        var a = []
+        $.ajax({
+            async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
+            url: "http://data4library.kr/api/libSrchByBook?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&region=11&format=json&isbn=9788932904405",
+            type: "GET",
+            timeout: 3000,
+            dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
+            success: function (result) {   // 서버가 주는 데이터 : result
+
+                $.each(result.response.libs, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
+
+                    var libcode = item.lib.libCode
+                    var rent = call_rent(libcode, 9788932904405)
+
+                    var b = {}
+                    b['place_name'] = item.lib.libName
+                    b['road_address_name'] = item.lib.address
+                    b['address_name'] = ''
+                    b['y'] = item.lib.latitude
+                    b['x'] = item.lib.longitude
+                    b['phone'] = item.lib.tel
+                    b['loanAvailable'] = rent
+                    b['homepage'] = item.lib.homepage
+                    b['closed'] = item.lib.closed
+                    b['operatingTime'] = item.lib.operatingTime
+
+                    a.push(b)
+                })
+
+            },
+            error: function (request, status, error) {
+                alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+                console.log(error)
+            },
+        })
+        return a
+    }
+
+    function call_rent(libcode, ISBN) {
+        var rent_avail
+        $.ajax({
+            async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
+            url: "http://data4library.kr/api/bookExist?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&format=json&libCode=" + libcode + "&isbn13=" + ISBN,
+            type: "GET",
+            timeout: 3000,
+            dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
+            success: function (result) {
+                rent_avail = result.response.result.loanAvailable
+
+                if (rent_avail == 'Y') {
+                    rent_avail = "대출가능!!!!"
+                }
+                else{
+                    rent_avail = "대출불가!!!!"
+                }
+            },
+        })
+        return rent_avail
+    }
+</script>
+
 
 <script>
     var markers = []; // marker 빈 리스트 생성
     var infowindow = new kakao.maps.InfoWindow({zIndex:1});
-    var positions = [
-        {
-            place_name: '강동도서관',
-            road_address_name: '서울특별시 강동구 양재대로116길 57',
-            address_name :'',
-            y: 37.5385252,
-            x: 127.143756,
-            phone: '00-000-0001',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'강북문화정보도서관',
-            road_address_name:'서울특별시 강북구 오현로 145',
-            address_name :'',
-            y:37.6248352  ,
-            x:127.0360823,
-            phone: '00-000-0002',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'강서구립가양도서관',
-            road_address_name:'서울특별시 강서구 양천로61길 101',
-            address_name :'',
-            y:37.559397   ,
-            x:126.8653386,
-            phone: '00-000-0003',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'구로도서관',
-            road_address_name:'서울특별시 구로구 공원로 15 ',
-            address_name :'',
-            y:37.4985419  ,
-            x:126.891674,
-            phone: '00-000-0004',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'금천구립가산도서관',
-            road_address_name:'서울특별시 금천구 가산로5길 43',
-            address_name :'',
-            y:37.4734504,
-            x:126.8921274,
-            phone: '00-000-0005',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'금천구립독산도서관',
-            road_address_name:'서울특별시 금천구 독산로54길 114',
-            address_name :'',
-            y:37.4674481,
-            x:126.9080502,
-            phone: '00-000-0006',
-            loanAvailable:'Y',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-
-        },
-        {
-            place_name:'남산도서관',
-            road_address_name:'서울특별시 용산구 소월로 109',
-            address_name :'',
-            y:37.5530786,
-            x:126.981334,
-            phone: '00-000-0007',
-            loanAvailable:'F',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-
-        {  place_name:'동대문구정보화도서관',
-            road_address_name:'서울특별시 동대문구 회기로10길 60',
-            address_name :'',
-            y:37.5900642 ,
-            x:127.047331,
-            phone: '00-000-0008',
-            loanAvailable:'F',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'서대문도서관',
-            road_address_name:'서울특별시 서대문구 모래내로 412',
-            address_name :'',
-            y:37.5834154,
-            x:126.940849,
-            phone: '00-000-0009',
-            loanAvailable:'F',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        },
-        {
-            place_name:'송파도서관',
-            road_address_name:'서울특별시 송파구 동남로 263',
-            address_name :'',
-            y:37.4999933,
-            x:127.134839,
-            phone: '00-000-0010',
-            loanAvailable:'F',
-            homepage : 'www.ddd.com',
-            closed : '일요일',
-            operatingTime: "09:00 ~ 18:00"
-        }
-    ];
+    var positions = positions();
     var my_bounds = [];
 
 
