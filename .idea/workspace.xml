@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea991638-75fe-455b-a77d-afdc29833c22" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/test.html" afterDir="false" />
-    </list>
+    <list default="true" id="ea991638-75fe-455b-a77d-afdc29833c22" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,7 +34,7 @@
       <workItem from="1597309197479" duration="848000" />
       <workItem from="1597364086722" duration="11459000" />
       <workItem from="1597379873542" duration="104000" />
-      <workItem from="1597380036084" duration="2091000" />
+      <workItem from="1597380036084" duration="2955000" />
     </task>
     <servers />
   </component>
@@ -49,21 +46,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="724" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597380043181" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test.html</url>
-          <line>91</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/test.html</url>
-          <line>90</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
