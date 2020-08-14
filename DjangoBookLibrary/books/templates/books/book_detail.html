@@ -21,6 +21,9 @@
         <a href="{% url 'rate_book' slug=book.slug rating=4 %}">4</a>
         <a href="{% url 'rate_book' slug=book.slug rating=5 %}">5</a> <br>
         <a href="#commentBox">Num of comments ({{ book.comments.count }})</a>
+        <br><br>
+        <a href="{% url 'map' %}" class="btn btn-success btn-xs"> 수정 </a>
+
     </div>
     <div class="col-md-8">
         <h5><strong>{{ book.title }}</strong> </h5>

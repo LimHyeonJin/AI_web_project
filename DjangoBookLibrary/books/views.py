@@ -110,14 +110,6 @@ class CommentUpdateView(FormMixin, DetailView):
 
 
 
-
-
-
-
-
-
-
-
 def rate_book_view(request, slug, rating):
     try:
         b = Book.objects.get(slug=slug)
@@ -136,3 +128,8 @@ def rate_book_view(request, slug, rating):
     except Book.DoesNotExist:
         raise Http404("Book is unavailable")
     return redirect('bookDetail', slug=b.slug)
+
+
+def Maplib(request):
+
+    return render(request, 'maps/map_lib.html')
