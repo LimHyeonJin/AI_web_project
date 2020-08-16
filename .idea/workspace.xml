@@ -45,6 +45,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JupyterTrust" id="e3a23016-654e-45d8-ac36-f7a4e95878f6" />
   <component name="ProjectId" id="1g2OPVTU4e6jIhRTVyVl3D1jQXv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -58,6 +59,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -72,11 +74,13 @@
       <workItem from="1597364086722" duration="11459000" />
       <workItem from="1597379873542" duration="104000" />
       <workItem from="1597380036084" duration="5219000" />
+      <workItem from="1597482204894" duration="935000" />
+      <workItem from="1597568378481" duration="980000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -88,11 +92,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="724" y="289" key="FileChooserDialogImpl" timestamp="1597380043181">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="724" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597380043181" />
+    <state x="918" y="81" width="1018" height="955" key="dock-window-1" timestamp="1597569743505">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="918" y="81" width="1018" height="955" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1597569743505" />
   </component>
 </project>
