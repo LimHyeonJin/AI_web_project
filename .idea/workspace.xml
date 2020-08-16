@@ -75,7 +75,7 @@
       <workItem from="1597379873542" duration="104000" />
       <workItem from="1597380036084" duration="5219000" />
       <workItem from="1597482204894" duration="935000" />
-      <workItem from="1597568378481" duration="980000" />
+      <workItem from="1597568378481" duration="5540000" />
     </task>
     <servers />
   </component>
@@ -103,5 +103,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="918" y="81" width="1018" height="955" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1597569743505" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/DjangoBookLibrary/books/templates/maps/map_lib.html</url>
+          <line>25</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
