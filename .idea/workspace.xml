@@ -20,15 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea991638-75fe-455b-a77d-afdc29833c22" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/book_store/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/book_store/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/book_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/book_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/book_search_result.html" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/book_search_result.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/books/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/maps/map_lib.html" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/templates/maps/map_lib.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/books/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/books/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DjangoBookLibrary/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/DjangoBookLibrary/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../python-Django/BBS_SYSTEM" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -88,11 +89,12 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="724" y="289" key="FileChooserDialogImpl" timestamp="1597380043181">
+    <state x="724" y="289" key="FileChooserDialogImpl" timestamp="1597711185693">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="724" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597380043181" />
+    <state x="724" y="289" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1597711185693" />
   </component>
 </project>

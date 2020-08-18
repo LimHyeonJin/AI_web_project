@@ -22,6 +22,6 @@ from books.views import Maplib
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('books.urls')),
-    path('map_lib/', Maplib, name='map'),
+
     path('users/', include('users.urls')),
 ]

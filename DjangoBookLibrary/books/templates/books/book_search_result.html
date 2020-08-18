@@ -2,6 +2,10 @@
 {% block content %}
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
+
+
+
+
     {% if book_list %}
     {% for book in book_list %}
     <div class="col-md-4 bookCard">

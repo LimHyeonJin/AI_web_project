@@ -130,6 +130,6 @@ def rate_book_view(request, slug, rating):
     return redirect('bookDetail', slug=b.slug)
 
 
-def Maplib(request):
+def Maplib(request, slug):
 
     return render(request, 'maps/map_lib.html')
