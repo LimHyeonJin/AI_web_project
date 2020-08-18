@@ -2,10 +2,13 @@
 {% block content %}
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
-
     <div class="col-md-4 bookCard">
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
         <script type="text/javascript">
-            var key = {{request.GET.q}}
+            var key = "{{request.GET.q}}"
             $.ajax({
                 async: true,
                 url: "https://dapi.kakao.com/v3/search/book?target=title",
@@ -16,8 +19,8 @@
                 headers: {Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9"},
                 success: function (result) {
                     $.each(result.documents, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
-                        var div = $("<div \>").attr({"class" : "cardBorder"})
-
+                        var div = $("<div></div").attr({"class" : "cardBorder"})
+                        var tr = $("<tr></tr>")
                         var isbn = item.isbn.slice(-13)
                         var ISBNTd = $("<td></td>").text(isbn)
 
@@ -46,7 +49,7 @@
                         div.append(PbDtTd)
                         div.append(infoTd)
 
-                        $("col-md-4 bookCard").append(div)
+                        $("div").append(div)
                     })
 
                 },
@@ -67,8 +70,9 @@
 <!--            {% else %}-->
 <!--            <h6>Nobody rated</h6>-->
 <!--            {% endif %}-->
-<!--            <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">Book details</button></a>-->
-        </div>
+<!--            {#<a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">Book details</button></a>#}-->
+<!--        </div>-->
     </div>
 </div>
+
 {% endblock content %}
