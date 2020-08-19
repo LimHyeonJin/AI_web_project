@@ -3,6 +3,7 @@
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
 
+
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
             crossorigin="anonymous"></script>
@@ -22,41 +23,60 @@
                         var div = $("<div></div").attr({"class" : "cardBorder"})
 
                         var isbn = item.isbn.slice(-13)
-                        var ISBNTd = $("<td></td>").text(isbn)
+                        isbn *= 1
+                        var ISBNTd = $("<input></input>").text(isbn).attr({name : "isbn", type :"hidden"})
 
                         var imgTd = $("<img \>").attr({"class":"book_image", "src": item.thumbnail, "width": "200"})
 
-                        var title = item.title.split("(")[0]
 
-                        var titleTd = $("<h5></h5>").text(title)
+
+                        var titleTd = $("<h5></h5>").text(item.title)
+                        var inputtitle = $("<input></input>").text(item.title).attr({name : "title", type :"hidden"})
+
                         var authorTd = $("<h6></h6>").text(item.authors)
+                        var inputauthor = $("<input></input>").text(item.authors).attr({name : "author", type :"hidden"})
+
                         var PbDtTd = $("<h6></h6>").text(item.datetime.substring(0, 10))
+                        var inputPbDtTd = $("<input></input>").text(item.datetime.substring(0, 10)).attr({name : "publish_date", type :"hidden"})
 
-                        var description = item.contents
+                        var description = $("<h6></h6>").text(item.contents)
+                        var inputdescription = $("<input></input>").text(item.contents).attr({name : "contents", type :"hidden"})
 
-                        var infoTd = $("<td></td>")
 
-                        href_name = "{% url 'bookDetail' slug=" + slugify(isbn) + " %}"
-
-<!--                        var infoBtn = $("<a \>").attr({href: href_name ,type: "button", value: "Book details"})-->
-<!--                        infoBtn.on("click", function () {-->
-<!--                            // 현재 클릭된 버튼에 대한 책 정보를 찾아서 삭제.-->
-<!--                            // this : 현재 이벤트가 발생된 객체를 지칭.-->
-<!--                            infonaru(item.title, isbn)-->
-<!--                        }) // "(click)"할때 이벤트 처리(함수)-->
-                        infoTd.append(infoBtn)
-
+                        var detailTd = $("<td></td>")
+                        var detailBtn = $("<button></button>").text("Book details").attr({type: "submit"})
+                        detailTd.append(detailBtn)
 
 
                         div.append(imgTd)
                         div.append(titleTd)
                         div.append(authorTd)
                         div.append(PbDtTd)
-                        div.append(infoTd)
+
 
                         bookCard.append(div)
-
                         $(".row:last").append(bookCard)
+
+
+                        var form_method = $("<form></form>").attr({method : "post"})
+
+                        form_method.append('{% csrf_token %}')
+                        form_method.append(inputtitle)
+                        form_method.append(inputauthor)
+                        form_method.append(inputPbDtTd)
+                        form_method.append(inputdescription)
+                        form_method.append(ISBNTd)
+                        form_method.append(detailTd)
+
+                        $(".row:last").append(form_method)
+
+
+
+
+
+
+
+
                     })
 
                 },

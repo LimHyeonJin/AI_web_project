@@ -33,18 +33,22 @@ class HomeListView(ListView):
         return queryset.all().order_by('-id')[:9]
 
 
-class SearchBookListView(ListView):
-    template_name = "books/book_search_result.html"
-    model = Book
+def SearchBookListView(request):
 
-    def get_queryset(self):
-        queryset = super(SearchBookListView, self).get_queryset()
-        q = self.request.GET.get("q")
-        if q:
-            books_by_title = queryset.filter(title__icontains=q)
-            books_by_author = queryset.filter(author__icontains=q)
-            return books_by_author | books_by_title
-        return queryset
+    if request.method == 'POST':
+        book_form = Book()
+        book_form.isbn = (request.POST['isbn'])
+        book_form.title = request.POST['title']
+        book_form.description = request.POST['contents']
+        book_form.author = request.POST['author']
+        book_form.publish_date = request.POST['publish_date']
+        print("이게 성공인가 실패인가 누구도")
+        book_form.save()
+
+    else:
+        pass
+
+    return render(request, "books/book_search_result.html")
 
 
 class BookDetailView(FormMixin, DetailView):
