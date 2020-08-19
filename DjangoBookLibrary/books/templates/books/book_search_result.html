@@ -3,6 +3,8 @@
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
 
+
+
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
             crossorigin="anonymous"></script>
@@ -26,9 +28,9 @@
 
                         var imgTd = $("<img \>").attr({"class":"book_image", "src": item.thumbnail, "width": "200"})
 
-                        var title = item.title.split("(")[0]
 
-                        var titleTd = $("<h5></h5>").text(title)
+
+                        var titleTd = $("<h5></h5>").text(item.title)
                         var authorTd = $("<h6></h6>").text(item.authors)
                         var PbDtTd = $("<h6></h6>").text(item.datetime.substring(0, 10))
 
@@ -36,16 +38,12 @@
 
                         var infoTd = $("<td></td>")
 
-                        href_name = "{% url 'bookDetail' slug=" + slugify(isbn) + " %}"
+                        var infoBtn = $("<input \>").attr("type", "button").attr("value","test")
+                        infoBtn.on("click", function () {
+                                       alert("동작되는지 확인")
+                             }) // "(click)"할때 이벤트 처리(함수)-->
 
-<!--                        var infoBtn = $("<a \>").attr({href: href_name ,type: "button", value: "Book details"})-->
-<!--                        infoBtn.on("click", function () {-->
-<!--                            // 현재 클릭된 버튼에 대한 책 정보를 찾아서 삭제.-->
-<!--                            // this : 현재 이벤트가 발생된 객체를 지칭.-->
-<!--                            infonaru(item.title, isbn)-->
-<!--                        }) // "(click)"할때 이벤트 처리(함수)-->
                         infoTd.append(infoBtn)
-
 
 
                         div.append(imgTd)
@@ -57,6 +55,7 @@
                         bookCard.append(div)
 
                         $(".row:last").append(bookCard)
+
                     })
 
                 },
@@ -66,7 +65,8 @@
                 },
             })
 <!--{#<a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">Book details</button></a>#}-->
-        </script>
+
+</script>
 <!--            <img class="book_image" src="{{ book.image.url }}" alt="Book image">-->
 <!--            <h5>{{ book.title }}</h5>-->
 <!--            <h6>{{ book.author }}</h6>-->
