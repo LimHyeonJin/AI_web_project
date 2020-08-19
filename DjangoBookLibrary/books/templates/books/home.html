@@ -16,6 +16,9 @@
 
     </p>
 </div>
+
+
+
 <hr class="my-4">
 <h2>High Rated Books</h2>
 <div class="row lastBooksContainer">
@@ -35,6 +38,7 @@
 
             <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-success btn-xs">Book detail</button></a>
         </div>
+        <a href="{% url 'map' slug=book.slug %}" class="btn btn-success btn-xs"> test_map </a>
     </div>
     {% endfor %}
 </div>
