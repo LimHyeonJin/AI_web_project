@@ -24,23 +24,23 @@
 
                         var isbn = item.isbn.slice(-13)
                         isbn *= 1
-                        var ISBNTd = $("<input></input>").text(isbn).attr({name : "isbn", type :"hidden"})
+                        var ISBNTd = $("<input></input>").attr({name : "isbn", type :"hidden", value : isbn})
 
                         var imgTd = $("<img \>").attr({"class":"book_image", "src": item.thumbnail, "width": "200"})
 
 
 
                         var titleTd = $("<h5></h5>").text(item.title)
-                        var inputtitle = $("<input></input>").text(item.title).attr({name : "title", type :"hidden"})
+                        var inputtitle = $("<input></input>").attr({name : "title", type :"hidden", value : item.title})
 
                         var authorTd = $("<h6></h6>").text(item.authors)
-                        var inputauthor = $("<input></input>").text(item.authors).attr({name : "author", type :"hidden"})
+                        var inputauthor = $("<input></input>").attr({name : "author", type :"hidden", value : item.authors})
 
                         var PbDtTd = $("<h6></h6>").text(item.datetime.substring(0, 10))
-                        var inputPbDtTd = $("<input></input>").text(item.datetime.substring(0, 10)).attr({name : "publish_date", type :"hidden"})
+                        var inputPbDtTd = $("<input></input>").attr({name : "publish_date", type :"hidden", value : item.datetime.substring(0, 10)})
 
                         var description = $("<h6></h6>").text(item.contents)
-                        var inputdescription = $("<input></input>").text(item.contents).attr({name : "contents", type :"hidden"})
+                        var inputdescription = $("<input></input>").attr({name : "contents", type :"hidden", value : item.contents})
 
 
                         var detailTd = $("<td></td>")

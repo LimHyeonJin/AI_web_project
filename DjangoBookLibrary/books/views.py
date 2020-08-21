@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 from django.views.generic.edit import FormMixin
 from django.views.generic import (
     DetailView,
@@ -37,13 +38,15 @@ def SearchBookListView(request):
 
     if request.method == 'POST':
         book_form = Book()
-        book_form.isbn = (request.POST['isbn'])
+        book_form.id = int(request.POST['isbn'])
         book_form.title = request.POST['title']
+        book_form.slug = slugify(int(request.POST['isbn']))
         book_form.description = request.POST['contents']
         book_form.author = request.POST['author']
         book_form.publish_date = request.POST['publish_date']
-        print("이게 성공인가 실패인가 누구도")
+
         book_form.save()
+        print("이게 성공인가 실패인가 누구도")
 
     else:
         pass

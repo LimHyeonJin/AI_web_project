@@ -3,10 +3,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
 
+
 class Book(models.Model):
+
     title = models.CharField(max_length=300)
     slug = models.SlugField(unique=True)
-    description = models.TextField(max_length=1000, default="About book")
+    description = models.TextField(max_length=10000000, default="About book")
     image = models.ImageField(
         default='default_book.png', upload_to='books_pics')
     author = models.CharField(max_length=100)
