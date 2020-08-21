@@ -44,9 +44,8 @@ def SearchBookListView(request):
         book_form.description = request.POST['contents']
         book_form.author = request.POST['author']
         book_form.publish_date = request.POST['publish_date']
-
         book_form.save()
-        print("이게 성공인가 실패인가 누구도")
+        return redirect('bookDetail', slug=book_form.slug)
 
     else:
         pass

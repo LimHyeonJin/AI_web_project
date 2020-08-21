@@ -48,15 +48,11 @@
                         detailTd.append(detailBtn)
 
 
+
                         div.append(imgTd)
                         div.append(titleTd)
                         div.append(authorTd)
                         div.append(PbDtTd)
-
-
-                        bookCard.append(div)
-                        $(".row:last").append(bookCard)
-
 
                         var form_method = $("<form></form>").attr({method : "post"})
 
@@ -68,13 +64,11 @@
                         form_method.append(ISBNTd)
                         form_method.append(detailTd)
 
-                        $(".row:last").append(form_method)
+                        div.append(form_method)
 
+                        bookCard.append(div)
 
-
-
-
-
+                        $(".row:last").append(bookCard)
 
 
                     })
