@@ -15,7 +15,7 @@ from .views import (
 
 urlpatterns = [
     path('', HomeListView.as_view(), name='home'),
-    path('search-book-results/', SearchBookListView, name='search'),
+    path('search-book-results/', SearchBookListView.as_view(), name='search'),
     path('book/<slug:slug>', BookDetailView.as_view(), name='bookDetail'),
     path('book/<slug:slug>/<update>/<int:comment_id>', CommentUpdateView.as_view(), name='comment_update'),
     path('book/<slug:slug>/<rating>', rate_book_view, name='rate_book'),

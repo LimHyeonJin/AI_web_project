@@ -138,6 +138,13 @@ function call_rent(libcode, ISBN) {
         dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
         success: function (result) {
             rent_avail = result.response.result.loanAvailable
+
+            if (rent_avail == 'Y') {
+                rent_avail = "대출가능!!!!"
+            }
+            else{
+                rent_avail = "대출불가!!!!"
+            }
         },
     })
     return rent_avail

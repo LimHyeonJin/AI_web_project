@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-4 bookDetailLeftSide">
-        <img class="bookImage" src="{{ book.image }}" alt=""> <br>
+        <img class="bookImage" src="{{ book.image.url }}" alt=""> <br>
         {% if book.actual_rating %}
         {% for rate in book.actual_rating %}
         <span class="fa fa-star checked"></span>
@@ -14,7 +14,6 @@
         <br>
         <h6>Nobody rated</h6>
         {% endif %}
-        {% if user.is_authenticated %}
         Give star:
         <a href="{% url 'rate_book' slug=book.slug rating=1 %}">1</a>
         <a href="{% url 'rate_book' slug=book.slug rating=2 %}">2</a>
@@ -22,11 +21,6 @@
         <a href="{% url 'rate_book' slug=book.slug rating=4 %}">4</a>
         <a href="{% url 'rate_book' slug=book.slug rating=5 %}">5</a> <br>
         <a href="#commentBox">Num of comments ({{ book.comments.count }})</a>
-        {% else %}
-        <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
-            <button class="btn btn-success btn-xs">Add star (login)</button></a>
-        {% endif %}
-
         <br><br>
         <a href="{% url 'map' slug=book.slug %}" class="btn btn-success btn-xs"> test_map </a>
 
@@ -57,7 +51,7 @@
             <div>
                 <h6><strong>{{ comment.user.username }}</strong></h6>
                 <h6 class="comment_text">{{ comment.text }}</h6>
-                <!--                <input tye= value... >-->
+<!--                <input tye= value... >-->
                 <button type="submit" class="btn btn-default">Modify your comment</button>
 
 

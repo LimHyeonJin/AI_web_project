@@ -25,7 +25,7 @@
     {% for book in book_list %}
     <div class="col-md-4 bookCard">
         <div class="cardBorder">
-            <img class="book_image" src="{{ book.image }}" alt="Book image">
+            <img class="book_image" src="{{ book.image.url }}" alt="Book image">
             <h5>{{ book.title }}</h5>
             <h6>{{ book.author }}</h6>
             {% if book.actual_rating %}
