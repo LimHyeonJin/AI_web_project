@@ -140,4 +140,6 @@ def rate_book_view(request, slug, rating):
 
 def Maplib(request, slug):
 
-    return render(request, 'maps/map_lib.html')
+    context = {"slug" : slug}
+
+    return render(request, 'maps/map_lib.html', context)
