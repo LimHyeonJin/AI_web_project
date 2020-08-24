@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.http import Http404, HttpResponseForbidden
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.utils.text import slugify
 from django.views.generic.edit import FormMixin
 from django.views.generic import (
     DetailView,
@@ -33,18 +34,25 @@ class HomeListView(ListView):
         return queryset.all().order_by('-id')[:9]
 
 
-class SearchBookListView(ListView):
-    template_name = "books/book_search_result.html"
-    model = Book
+def SearchBookListView(request):
 
-    def get_queryset(self):
-        queryset = super(SearchBookListView, self).get_queryset()
-        q = self.request.GET.get("q")
-        if q:
-            books_by_title = queryset.filter(title__icontains=q)
-            books_by_author = queryset.filter(author__icontains=q)
-            return books_by_author | books_by_title
-        return queryset
+    if request.method == 'POST':
+        book_form = Book()
+        book_form.id = int(request.POST['isbn'])
+        book_form.image = request.POST['img']
+        book_form.title = request.POST['title']
+        book_form.slug = slugify(int(request.POST['isbn']))
+        book_form.description = request.POST['contents']
+        book_form.author = request.POST['author']
+        book_form.publish_date = request.POST['publish_date']
+        book_form.last_rating = Book.objects.get(slug=book_form.slug).last_rating
+        book_form.save()
+        return redirect('bookDetail', slug=book_form.slug)
+
+    else:
+        pass
+
+    return render(request, "books/book_search_result.html")
 
 
 class BookDetailView(FormMixin, DetailView):
@@ -119,7 +127,7 @@ def rate_book_view(request, slug, rating):
             b.last_rating = b.calc_rating
             b.save()
             messages.success(
-                request, 'You rated a book: {b.title}')
+                request, 'You rated a book: ' + b.title)
 
         else:
             messages.warning(
