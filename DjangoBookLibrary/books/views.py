@@ -45,8 +45,14 @@ def SearchBookListView(request):
         book_form.description = request.POST['contents']
         book_form.author = request.POST['author']
         book_form.publish_date = request.POST['publish_date']
-        book_form.last_rating = Book.objects.get(slug=book_form.slug).last_rating
+        try:
+            booklast = Book.objects.get(slug=book_form.slug).last_rating
+            book_form.last_rating = booklast
+        except:
+            pass
+
         book_form.save()
+
         return redirect('bookDetail', slug=book_form.slug)
 
     else:
