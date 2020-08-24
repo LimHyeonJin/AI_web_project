@@ -14,6 +14,7 @@
         <br>
         <h6>Nobody rated</h6>
         {% endif %}
+        {% if user.is_authenticated %}
         Give star:
         <a href="{% url 'rate_book' slug=book.slug rating=1 %}">1</a>
         <a href="{% url 'rate_book' slug=book.slug rating=2 %}">2</a>
@@ -21,6 +22,11 @@
         <a href="{% url 'rate_book' slug=book.slug rating=4 %}">4</a>
         <a href="{% url 'rate_book' slug=book.slug rating=5 %}">5</a> <br>
         <a href="#commentBox">Num of comments ({{ book.comments.count }})</a>
+        {% else %}
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
+                <button class="btn btn-success btn-xs">Add star (login)</button></a>
+        {% endif %}
+
         <br><br>
         <a href="{% url 'map' slug=book.slug %}" class="btn btn-success btn-xs"> test_map </a>
 
