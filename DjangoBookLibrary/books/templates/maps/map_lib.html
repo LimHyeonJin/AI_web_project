@@ -33,12 +33,19 @@
         var a = []
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&format=json&isbn="+ key,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=10&format=json&isbn="+ key,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
             success: function (result) {   // 서버가 주는 데이터 : result
 
+                  if (result.response.resultNum == 0)
+                  {
+                  alert ("해당 도서를 소지한 도서관이 존재하지 않습니다.")
+                  location.href = "http://127.0.0.1:8000/book/"+ key;
+                  }
+
+                  else{
                 $.each(result.response.libs, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
 
                     var libcode = item.lib.libCode
@@ -57,9 +64,15 @@
                     b['operatingTime'] = item.lib.operatingTime
 
                     a.push(b)
-                })
+                    console.log(a)
 
-            },
+                    })
+
+            }
+            }
+            ,
+
+
             error: function (request, status, error) {
                 alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
                 console.log(error)
@@ -106,13 +119,15 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 placesSearchCB(positions, 1, pagination)
 
 function placesSearchCB(data, status, pagination) {
-
     // 정상적으로 검색이 완료됐으면
     // 검색 목록과 마커를 표출합니다
+   
+    
     displayPlaces(data);
-
+    
     // 페이지 번호를 표출합니다
     displayPagination(pagination);
+
 }
 
 
