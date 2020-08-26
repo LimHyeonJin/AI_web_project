@@ -18,7 +18,7 @@
 
 </div>
 
-</div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a25e3f461e21becf81f9f64bc8294ee&libraries=services,clusterer,drawing"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -33,7 +33,7 @@
         var a = []
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=10&format=json&isbn="+ key,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&region=11&pageSize=10&format=json&isbn="+key,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
@@ -66,15 +66,14 @@
                     b['operatingTime'] = item.lib.operatingTime
 
                     a.push(b)}
+
                     else {
                     }
-
 
                     })
 
             }}
             ,
-
 
             error: function (request, status, error) {
                 alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
@@ -88,7 +87,7 @@
         var rent_avail
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/bookExist?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&format=json&libCode="+libcode+"&isbn13="+ISBN,
+            url: "http://data4library.kr/api/bookExist?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&format=json&libCode="+libcode+"&isbn13="+ISBN,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
