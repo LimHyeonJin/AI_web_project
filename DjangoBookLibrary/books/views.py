@@ -31,7 +31,7 @@ class HomeListView(ListView):
 
     def get_queryset(self):
         queryset = super(HomeListView, self).get_queryset()
-        return queryset.all().order_by('-id')[:9]
+        return queryset.all().order_by('-last_rating')[:9]
 
 
 def SearchBookListView(request):
