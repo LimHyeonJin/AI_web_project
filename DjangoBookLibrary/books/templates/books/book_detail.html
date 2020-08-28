@@ -84,17 +84,16 @@
       <div class="modal-content">
         <span id="pop_up" class = "close" > &times; </span>
           <div class="map_wrap">
-    <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
+            <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 
-        <div id="menu_wrap" class="bg_white">
-            <div class="option">
+                <div id="menu_wrap" class="bg_white">
+                    <div class="option">
 
-            </div>
-            <hr>
-            <ul id="placesList"></ul>
-            <div id="pagination"></div>
+                    </div>
+                    <hr>
+                <ul id="placesList"></ul>
+                <div id="pagination"></div>
         </div>
-
 
 </div>
 
@@ -130,9 +129,7 @@
             }
         }
 
-        $("#myModal").on('shown.bs.modal', function() {
-// id 속성값이 myModal인 element 에 지도를 표시하는 로직
-        })
+
 </script>
 
 
@@ -218,7 +215,7 @@
 
 <script>
 
-setTimeout(function(){ map.relayout(); },3000);
+setTimeout(function(){ map.relayout(); map.setBounds(bounds);}, 1000);
 
     var markers = []; // marker 빈 리스트 생성
     var infowindow = new kakao.maps.InfoWindow({zIndex:1});
@@ -236,6 +233,11 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 
 // 마커를 표시할 위치와 title 객체 배열입니다
+$(document).ready(function(){
+     $('#myModal').on('shown.bs.modal', function(){
+     placesSearchCB(positions, 1, pagination)
+     });
+});
 
 placesSearchCB(positions, 1, pagination)
 
@@ -306,13 +308,7 @@ function displayPlaces(places) {
 
 
     map.setMaxLevel(8);
-    map.relayout()
     map.setBounds(bounds);
-
-    bd_lc = bounds.toString()
-    console.log(bd_lc)
-
-    map.relayout()
 
 }
 
@@ -429,6 +425,7 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 </script>
 
