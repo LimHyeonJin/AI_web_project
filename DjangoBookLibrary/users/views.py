@@ -15,6 +15,7 @@ from .forms import (
     ProfileUpdateForm,
     UserRegisterForm,
     UserUpdateForm)
+from books.models import BookReview, Book
 
 # Create your views here.
 
@@ -25,9 +26,13 @@ class SignUpView(CreateView):
     template_name = 'users/signup.html'
     success_message = "Now you are registered, try to log in!"
 
-class UserDetailView(LoginRequiredMixin, TemplateView):
+def UserDetailView(request):
     login_url = "login"
+    book = Book.objects.all()
+    book_review = BookReview.objects.all()
     template_name = 'users/user_detail.html'
+    context = {"login_url" : login_url, "book" : book, "book_review" : book_review}
+    return render(request, template_name, context)
 
 
 class UserUpdateView(LoginRequiredMixin, FormView):

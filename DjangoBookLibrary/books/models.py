@@ -53,6 +53,13 @@ class BookReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     rating = models.IntegerField()
 
+    @property
+    def actual_rating(self):
+        list_of_stars = []
+        for star in range(self.rating):
+            list_of_stars.append(star)
+        return list_of_stars
+
 
 class BookComment(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
