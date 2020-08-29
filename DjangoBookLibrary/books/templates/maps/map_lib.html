@@ -106,7 +106,6 @@
     var positions = positions();
     var my_bounds = [];
 
-
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
     mapOption = {
         center: new kakao.maps.LatLng(37.509581, 127.05531), // 지도의 중심좌표
@@ -119,6 +118,14 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 마커를 표시할 위치와 title 객체 배열입니다
 
 placesSearchCB(positions, 1, pagination)
+
+alert('문제 1')
+var bd = map.getBounds();
+bd.toString(); // "((33.44843745687413, 126.56798357402302), (33.452964008206735, 126.57333898904454))"
+alert('문제 2')
+map.relayout();
+
+map.set
 
 function placesSearchCB(data, status, pagination) {
     // 정상적으로 검색이 완료됐으면
