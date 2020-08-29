@@ -24,11 +24,25 @@
         <table style="width:100%" id="books">
             <tr>
                 <th>Title</th>
+                <th>My Rate</th>
             </tr>
-            {% for book in user.books.all %}
-            <tr>
-                <td>{{ book.book.title }}</td>
-            </tr>
+            {% for bookreview in book_review %}
+                {% if bookreview.user_id ==  user.id %}
+                    {% for books in book%}
+                        {% if books.id ==  bookreview.book_id %}
+                            <tr>
+                                <td>
+                                    <a href="{% url 'bookDetail' slug=books.slug %}">{{books.title}}</a>
+                                </td>
+                                <td>
+                                    {% for rate in bookreview.actual_rating %}
+                                        <span class="fa fa-star checked"></span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif%}
             {% endfor %}
         </table>
 
