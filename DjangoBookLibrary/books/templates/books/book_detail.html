@@ -28,11 +28,11 @@
         {% endif %}
 
         <br><br>
-        <a href="{% url 'map' slug=book.slug %}" class="btn btn-success btn-xs"> test_map </a>
+        <a href="{% url 'map' slug=book.slug %}" class="btn btn-light btn-xs"> Map! </a>
 
     </div>
     <div class="col-md-8">
-        <h5><strong>{{ book.title }}</strong> </h5>
+        <h4><strong>{{ book.title }}</strong> </h4>
         <h5><strong>Author:</strong> {{ book.author }}</h5>
         <h6><strong>Description:</strong> </h6>
         <p> {{ book.description }}</p>
@@ -42,29 +42,28 @@
             <form method="post" class="formsWidth">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-success">Add comment</button>
+                <button type="submit" class="btn btn-dark">Add comment</button>
             </form>
 
             {% else %}
-            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-success btn-xs">Add
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-dark disabled btn-xs">Add
                     comment (login)</button></a>
             {% endif %}
 
             {% if comments %}
-            <br> <br>
-            <h6>Comments({{ book.comments.count }}):</h6>
+            <br><br>
+            <h6>Comments({{ book.comments.count }})</h6>
             {% for comment in comments %}
+            <br>
             <div>
                 <h6><strong>{{ comment.user.username }}</strong></h6>
                 <h6 class="comment_text">{{ comment.text }}</h6>
-                <!--                <input tye= value... >-->
                 <button type="submit" class="btn btn-default">Modify your comment</button>
-
-
             </div>
             <hr class="my-4">
             {% endfor %}
             {% else %}
+            <br><br>
             <h6>No comments here yet</h6>
 
             {% endif %}
