@@ -12,6 +12,7 @@ body {
 }
 .bg-success {
     background-color: #437744;
+    padding-bottom: 10px;
 }
 .navbar-nav {
     font-size: 0.9em;
@@ -42,6 +43,7 @@ body {
 .content-section {
     box-shadow: 4px 6px 20px 0px #235789;
     padding: 20px;
+
 }
 .pageContent {
     margin-top: 100px;
@@ -76,8 +78,8 @@ body {
     text-align: center;
 }
 .comment_text {
-    font-style: italic;
-    margin-left: 20px;
+    font-style: normal;
+    margin-left: 10px;
 }
 .bookDetailLeftSide .bookImage {
     max-width: 200px;

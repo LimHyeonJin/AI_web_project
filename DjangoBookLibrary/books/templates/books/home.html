@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Check Check!</h1>
+    <h1 class="display-4"> 책 Check!</h1>
     <p class="lead">Create your account and login to review, rate, and find books!</p>
     <hr class="my-4">
     <p>
@@ -10,7 +10,7 @@
             <div class="form-group row">
                 <input class="form-control col-md-7" required="required" name="q" type="text" placeholder="Write title">
                 <span class="col-md-1"></span>
-                <button type="submit" class="btn btn-success form-control col-md-2">Search</button>
+                <button type="submit" class="btn btn-dark form-control col-md-2">Search</button>
             </div>
         </form>
 
@@ -26,6 +26,7 @@
     <div class="col-md-4 bookCard">
         <div class="cardBorder">
             <img class="book_image" src="{{ book.image.url }}" alt="Book image">
+            <br>
             <h5>{{ book.title }}</h5>
             <h6>{{ book.author }}</h6>
             {% if book.actual_rating %}
@@ -35,10 +36,15 @@
             {% else %}
             <h6>Nobody rated</h6>
             {% endif %}
-
-            <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-success btn-xs">Book detail</button></a>
+            <br>
+            <br>
+            <br>
+            <div class="btn-toolbar; text-center">
+                <div style="float:none"></div>
+                <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-outline-secondary btn-xs mr-2">Book detail</button></a>
+                <a href="{% url 'map' slug=book.slug %}" class="btn btn-outline-secondary btn-xs"> Map </a>
+            </div>
         </div>
-        <a href="{% url 'map' slug=book.slug %}" class="btn btn-success btn-xs"> test_map </a>
     </div>
     {% endfor %}
 </div>
