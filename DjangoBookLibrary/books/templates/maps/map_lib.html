@@ -119,13 +119,6 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 placesSearchCB(positions, 1, pagination)
 
-alert('문제 1')
-var bd = map.getBounds();
-bd.toString(); // "((33.44843745687413, 126.56798357402302), (33.452964008206735, 126.57333898904454))"
-alert('문제 2')
-map.relayout();
-
-map.set
 
 function placesSearchCB(data, status, pagination) {
     // 정상적으로 검색이 완료됐으면
@@ -207,6 +200,17 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
+
+    var bd = new kakao.maps.LatLngBounds();
+        bd.da = bounds.da - 0.25;
+        bd.ia = bounds.ia - 0.25;
+        bd.ja = bounds.ja + 0.08;
+        bd.ka = bounds.ka + 0.08;
+        map.setBounds(bd)
+        console.log(bd)
+        map.relayout();
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

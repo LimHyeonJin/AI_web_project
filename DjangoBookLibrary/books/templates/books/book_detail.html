@@ -226,14 +226,10 @@
 <script>
 
 
-    setTimeout(function () {
-        map.relayout();
-    }, 1000);
 
     var markers = []; // marker 빈 리스트 생성
     var infowindow = new kakao.maps.InfoWindow({zIndex: 1});
     var positions = positions();
-    var my_bounds = [];
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
@@ -243,10 +239,14 @@
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    map.setMaxLevel(8);
 
+     setTimeout(function () {
+        map.relayout()
+    }, 1000);
 
 // 마커를 표시할 위치와 title 객체 배열입니다
-    placesSearchCB(positions, 1, pagination)
+    placesSearchCB(positions, 1, pagination);
 
     function placesSearchCB(data, status, pagination) {
         // 정상적으로 검색이 완료됐으면
@@ -313,10 +313,17 @@
         menuEl.scrollTop = 0; // 스크롤바 생성
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
 
-
-        map.setMaxLevel(8);
         map.setBounds(bounds);
 
+        var bd = new kakao.maps.LatLngBounds();
+        bd.da = bounds.da - 0.25;
+        bd.ia = bounds.ia - 0.25;
+        bd.ja = bounds.ja + 0.08;
+        bd.ka = bounds.ka + 0.08;
+        map.setBounds(bd)
+        console.log(bd)
+
+        map.relayout();
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
