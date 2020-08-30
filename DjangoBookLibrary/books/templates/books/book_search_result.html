@@ -27,8 +27,6 @@
                         var ISBNTd = $("<input></input>").attr({name : "isbn", type :"hidden", value : isbn})
 
                         var imgTd = $("<img \>").attr({"class":"book_image", "src": item.thumbnail, "width": "200"})
-                        var inputimg = $("<input></input>").attr({name : "img", type :"hidden", value : item.thumbnail})
-                        
 
                         var titleTd = $("<h5></h5>").text(item.title)
                         var inputtitle = $("<input></input>").attr({name : "title", type :"hidden", value : item.title})
@@ -41,11 +39,11 @@
 
                         var description = $("<h6></h6>").text(item.contents)
                         var inputdescription = $("<input></input>").attr({name : "contents", type :"hidden", value : item.contents})
-                        console.log(item.contents)
 
 
-                        var detailTd = $("<td></td>")
-                        var detailBtn = $("<button></button>").text("Book details").attr({type: "submit"})
+                        var detailTd = $("<td></td>").css("display","block").css("margin","auto")
+
+                        var detailBtn = $("<button></button>").text("Book details").attr({type: "submit"}).css("border", "none").css("padding","10px").css("font-size","15px")
                         detailTd.append(detailBtn)
 
 
@@ -58,7 +56,6 @@
 
                         form_method.append('{% csrf_token %}')
                         form_method.append(inputtitle)
-                        form_method.append(inputimg)
                         form_method.append(inputauthor)
                         form_method.append(inputPbDtTd)
                         form_method.append(inputdescription)
@@ -71,6 +68,7 @@
 
                         $(".row:last").append(bookCard)
 
+
                     })
 
                 },
@@ -79,8 +77,21 @@
                     console.log(error)
                 },
             })
+<!--{#<a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">Book details</button></a>#}-->
 
-        </script>
+</script>
+<!--            <img class="book_image" src="{{ book.image.url }}" alt="Book image">-->
+<!--            <h5>{{ book.title }}</h5>-->
+<!--            <h6>{{ book.author }}</h6>-->
+<!--            {% if book.actual_rating %}-->
+<!--            {% for rate in book.actual_rating %}-->
+<!--            <span class="fa fa-star checked"></span>-->
+<!--            {% endfor %} <br>-->
+<!--            {% else %}-->
+<!--            <h6>Nobody rated</h6>-->
+<!--            {% endif %}-->
+
+<!--        </div>-->
     </div>
 </div>
 
