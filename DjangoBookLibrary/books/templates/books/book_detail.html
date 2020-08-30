@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row">
     <div class="col-md-4 bookDetailLeftSide">
-        <img class="bookImage" src="{{ book.image.url }}" alt=""> <br>
+        <img class="bookImage" src="{{ book.image }}" alt=""> <br>
         {% if book.actual_rating %}
         {% for rate in book.actual_rating %}
         <span class="fa fa-star checked"></span>

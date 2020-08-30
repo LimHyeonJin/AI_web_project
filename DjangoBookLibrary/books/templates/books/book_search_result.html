@@ -4,95 +4,84 @@
 <div class="row lastBooksContainer">
 
 
-        <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-            crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            var key = "{{request.GET.q}}"
-            $.ajax({
-                async: true,
-                url: "https://dapi.kakao.com/v3/search/book?target=title",
-                type: "GET",
-                timeout: 3000,
-                data: {query: key, size: 50},
-                dataType: "json",
-                headers: {Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9"},
-                success: function (result) {
-                    $.each(result.documents, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
-                        var bookCard = $("<div></div").attr({"class" : "col-md-4 bookCard"})
-                        var div = $("<div></div").attr({"class" : "cardBorder"})
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var key = "{{request.GET.q}}"
+        $.ajax({
+            async: true,
+            url: "https://dapi.kakao.com/v3/search/book?target=title",
+            type: "GET",
+            timeout: 3000,
+            data: { query: key, size: 50 },
+            dataType: "json",
+            headers: { Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9" },
+            success: function (result) {
+                $.each(result.documents, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
+                    var bookCard = $("<div></div").attr({ "class": "col-md-4 bookCard" })
+                    var div = $("<div></div").attr({ "class": "cardBorder" })
 
-                        var isbn = item.isbn.slice(-13)
-                        isbn *= 1
-                        var ISBNTd = $("<input></input>").attr({name : "isbn", type :"hidden", value : isbn})
+                    var isbn = item.isbn.slice(-13)
+                    isbn *= 1
+                    var ISBNTd = $("<input></input>").attr({ name: "isbn", type: "hidden", value: isbn })
 
-                        var imgTd = $("<img \>").attr({"class":"book_image", "src": item.thumbnail, "width": "200"})
+                    var imgTd = $("<img \>").attr({ "class": "book_image", "src": item.thumbnail, "width": "200" })
+                    var inputimg = $("<input></input>").attr({name : "img", type :"hidden", value : item.thumbnail})
 
-                        var titleTd = $("<h5></h5>").text(item.title)
-                        var inputtitle = $("<input></input>").attr({name : "title", type :"hidden", value : item.title})
+                    var titleTd = $("<h5></h5>").text(item.title)
+                    var inputtitle = $("<input></input>").attr({ name: "title", type: "hidden", value: item.title })
 
-                        var authorTd = $("<h6></h6>").text(item.authors)
-                        var inputauthor = $("<input></input>").attr({name : "author", type :"hidden", value : item.authors})
+                    var authorTd = $("<h6></h6>").text(item.authors)
+                    var inputauthor = $("<input></input>").attr({ name: "author", type: "hidden", value: item.authors })
 
-                        var PbDtTd = $("<h6></h6>").text(item.datetime.substring(0, 10))
-                        var inputPbDtTd = $("<input></input>").attr({name : "publish_date", type :"hidden", value : item.datetime.substring(0, 10)})
+                    var PbDtTd = $("<h6></h6>").text(item.datetime.substring(0, 10))
+                    var inputPbDtTd = $("<input></input>").attr({ name: "publish_date", type: "hidden", value: item.datetime.substring(0, 10) })
 
-                        var description = $("<h6></h6>").text(item.contents)
-                        var inputdescription = $("<input></input>").attr({name : "contents", type :"hidden", value : item.contents})
-
-
-                        var detailTd = $("<td></td>").css("display","block").css("margin","auto")
-
-                        var detailBtn = $("<button></button>").text("Book details").attr({type: "submit"}).css("border", "none").css("padding","10px").css("font-size","15px")
-                        detailTd.append(detailBtn)
+                    var description = $("<h6></h6>").text(item.contents)
+                    var inputdescription = $("<input></input>").attr({ name: "contents", type: "hidden", value: item.contents })
 
 
-                        div.append(imgTd)
-                        div.append(titleTd)
-                        div.append(authorTd)
-                        div.append(PbDtTd)
+                    var detailTd = $("<td></td>").css("display", "block").css("margin", "auto")
 
-                        var form_method = $("<form></form>").attr({method : "post"})
-
-                        form_method.append('{% csrf_token %}')
-                        form_method.append(inputtitle)
-                        form_method.append(inputauthor)
-                        form_method.append(inputPbDtTd)
-                        form_method.append(inputdescription)
-                        form_method.append(ISBNTd)
-                        form_method.append(detailTd)
-
-                        div.append(form_method)
-
-                        bookCard.append(div)
-
-                        $(".row:last").append(bookCard)
+                    var detailBtn = $("<button></button>").text("Book details").attr({ type: "submit" }).css("border", "none").css("padding", "10px").css("font-size", "15px")
+                    detailTd.append(detailBtn)
 
 
-                    })
+                    div.append(imgTd)
+                    div.append(titleTd)
+                    div.append(authorTd)
+                    div.append(PbDtTd)
 
-                },
-                error: function (request, status, error) {
-                    alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
-                    console.log(error)
-                },
-            })
-<!--{#<a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-primary btn-xs">Book details</button></a>#}-->
+                    var form_method = $("<form></form>").attr({ method: "post" })
 
-</script>
-<!--            <img class="book_image" src="{{ book.image.url }}" alt="Book image">-->
-<!--            <h5>{{ book.title }}</h5>-->
-<!--            <h6>{{ book.author }}</h6>-->
-<!--            {% if book.actual_rating %}-->
-<!--            {% for rate in book.actual_rating %}-->
-<!--            <span class="fa fa-star checked"></span>-->
-<!--            {% endfor %} <br>-->
-<!--            {% else %}-->
-<!--            <h6>Nobody rated</h6>-->
-<!--            {% endif %}-->
+                    form_method.append('{% csrf_token %}')
+                    form_method.append(inputtitle)
+                    form_method.append(inputimg)
+                    form_method.append(inputauthor)
+                    form_method.append(inputPbDtTd)
+                    form_method.append(inputdescription)
+                    form_method.append(ISBNTd)
+                    form_method.append(detailTd)
 
-<!--        </div>-->
-    </div>
+                    div.append(form_method)
+
+                    bookCard.append(div)
+
+                    $(".row:last").append(bookCard)
+
+
+                })
+
+            },
+            error: function (request, status, error) {
+                alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+                console.log(error)
+            },
+        })
+
+    </script>
+
+</div>
 </div>
 
 {% endblock content %}
