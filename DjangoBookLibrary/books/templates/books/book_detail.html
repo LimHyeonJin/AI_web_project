@@ -79,6 +79,31 @@
 <!--<input type="button" id="myBtn" value="Open Modal">-->
 <button id="myBtn">Open Modal</button>
 
+
+
+<!--<td>-->
+<!--<button type='button' onclick="pg('p',this);">+</button>-->
+<!--<input type='text' name="pp" value="0" readonly="readonly" />-->
+<!--<button type='button' onclick="pg('m',this);">-</button>-->
+<!--</td>-->
+
+<!--<script>-->
+<!--function pg(type, ths) {-->
+<!--    var tinput = $(ths).parents("td").find("input[name='pp']");-->
+<!--    var tCount = Number(tinput.val());-->
+<!--    if (type=='p'){-->
+<!--        tinput.val(Number(tCount)+1);-->
+<!--        console.log('plus')-->
+<!--    }-->
+<!--    else{-->
+<!--        if(tCount>0) tinput.val((Number)-1);-->
+<!--        console.log('m')-->
+<!--    }-->
+<!--}-->
+<!--// </script>-->
+
+
+
     <!-- The Modal -->
         <div id="myModal" class="modal">
 
@@ -98,13 +123,21 @@
                     <hr>
                 <ul id="placesList"></ul>
                 <div id="pagination"></div>
-                </div>
 
+                </div>
+                <form>
+                        <input type=hidden name=amount value = 1 id="countid">
+                        <input type=button id="plus" value="다음" onClick="javascript:this.form.amount.value++;">
+                        <input type=button value="이전" onClick="javascript:this.form.amount.value--;">
+                </form>
           </div>
 
       </div>
 
+
       </div>
+
+
 
 
 <script>
@@ -143,6 +176,11 @@
             }
         }
 
+        $("#plus").live('click', function(event){
+         alert( "GO" );
+        });
+
+
 </script>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a25e3f461e21becf81f9f64bc8294ee&libraries=services,clusterer,drawing"></script>
@@ -154,11 +192,13 @@
 
     function positions(){
         var key = "{{book.slug}}"
+        var countkey = $("#countid").val();
         console.log(key)
+        console.log(countkey)
         var a = []
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=10&format=json&isbn="+key,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=10&format=json&isbn="+key+"&pageNo="+countkey,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
@@ -167,7 +207,6 @@
                   if (result.response.resultNum == 0) {
                     $(".modal-content").empty()
                   }
-
 
                   else{
                 $.each(result.response.libs, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
