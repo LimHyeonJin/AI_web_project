@@ -192,7 +192,7 @@
         var a = []
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=200&format=json&isbn="+key,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=50&format=json&isbn="+key,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
@@ -260,7 +260,9 @@
 
 <script>
 
-
+    setTimeout(function () {
+        map.relayout()
+    }, 1000);
 
     var markers = []; // marker 빈 리스트 생성
     var infowindow = new kakao.maps.InfoWindow({zIndex: 1});
