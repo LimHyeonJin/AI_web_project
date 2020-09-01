@@ -75,12 +75,6 @@
 
 </div>
 
-
-<!--<input type="button" id="myBtn" value="Open Modal">-->
-<button id="myBtn">Open Modal</button>
-
-
-
 <!--<td>-->
 <!--<button type='button' onclick="pg('p',this);">+</button>-->
 <!--<input type='text' name="pp" value="0" readonly="readonly" />-->
@@ -102,16 +96,15 @@
 <!--}-->
 <!--// </script>-->
 
-
+<!--<input type="button" id="myBtn" value="Open Modal">-->
+<button id="myBtn">Open Modal</button>
 
     <!-- The Modal -->
-        <div id="myModal" class="modal">
-
+    <div id="myModal" class="modal">
       <!-- Modal content -->
       <div class="modal-content">
 
         <span id="pop_up" class = "close" > &times; </span>
-
 
           <div class="map_wrap">
             <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
@@ -125,11 +118,11 @@
                 <div id="pagination"></div>
 
                 </div>
-                <form>
-                        <input type=hidden name=amount value = 1 id="countid">
-                        <input type=button id="plus" value="다음" onClick="javascript:this.form.amount.value++;">
-                        <input type=button value="이전" onClick="javascript:this.form.amount.value--;">
-                </form>
+<!--                <form>-->
+<!--                        <input type=hidden name=amount value = 1 id="countid">-->
+<!--                        <input type=button id="plus" value="다음" onClick="javascript:this.form.amount.value++;">-->
+<!--                        <input type=button value="이전" onClick="javascript:this.form.amount.value&#45;&#45;;">-->
+<!--                </form>-->
           </div>
 
       </div>
@@ -192,13 +185,14 @@
 
     function positions(){
         var key = "{{book.slug}}"
-        var countkey = $("#countid").val();
-        console.log(key)
-        console.log(countkey)
+        var count_key = 0
+        // var countkey = $("#countid").val();
+        // "pageNO" + countkey
+        // console.log(countkey)
         var a = []
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=10&format=json&isbn="+key+"&pageNo="+countkey,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=200&format=json&isbn="+key,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
@@ -214,7 +208,8 @@
                     var libcode = item.lib.libCode
                     var rent = call_rent(libcode, key)
 
-                    if (rent == 'Y'){
+                    if (rent == 'Y' && count_key < 15 ){
+
                     var b = {}
                     b['place_name'] = item.lib.libName
                     b['road_address_name'] = item.lib.address
@@ -227,10 +222,11 @@
                     b['closed'] = item.lib.closed
                     b['operatingTime'] = item.lib.operatingTime
 
-                    a.push(b)}
-
-                    else {
+                    a.push(b)
+                    count_key +=1;
+                    console.log(count_key)
                     }
+
 
                     })
 
