@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
+
+<form class="searchForm" action="{% url 'search' %}" method=" GET">
+    <div class="form-group row">
+        <input class="form-control col-md-7" required="required" name="q" type="text" placeholder="Write title">
+        <span class="col-md-1"></span>
+        <button type="submit" class="btn btn-dark form-control col-md-2">Search</button>
+    </div>
+</form>
+
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
-
 
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -25,8 +33,15 @@
                     isbn *= 1
                     var ISBNTd = $("<input></input>").attr({ name: "isbn", type: "hidden", value: isbn })
 
-                    var imgTd = $("<img \>").attr({ "class": "book_image", "src": item.thumbnail, "width": "200" })
-                    var inputimg = $("<input></input>").attr({name : "img", type :"hidden", value : item.thumbnail})
+                    var image = item.thumbnail
+                    if (image == "") {
+                        var inputimg = $("<input></input>").attr({ type: "image", src: 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg', width: 120, hight: 174 })
+                        var imgTd = $("<input></input>").attr({ name: "img", type: "hidden", value: 'https://islandpress.org/sites/default/files/default_book_cover_2015.jpg' })
+                    }
+                    else {
+                        var inputimg = $("<input></input>").attr({ type: "image", src: item.thumbnail })
+                        var imgTd = $("<input></input>").attr({ name: "img", type: "hidden", value: item.thumbnail })
+                    }
 
                     var titleTd = $("<h5></h5>").text(item.title)
                     var inputtitle = $("<input></input>").attr({ name: "title", type: "hidden", value: item.title })
@@ -41,29 +56,22 @@
                     var inputdescription = $("<input></input>").attr({ name: "contents", type: "hidden", value: item.contents })
 
 
-                    var detailTd = $("<td></td>").css("display", "block").css("margin", "auto")
-
-                    var detailBtn = $("<button></button>").text("Book details").attr({ type: "submit" }).css("border", "none").css("padding", "10px").css("font-size", "15px")
-                    detailTd.append(detailBtn)
-
-
-                    div.append(imgTd)
-                    div.append(titleTd)
-                    div.append(authorTd)
-                    div.append(PbDtTd)
-
                     var form_method = $("<form></form>").attr({ method: "post" })
 
                     form_method.append('{% csrf_token %}')
                     form_method.append(inputtitle)
                     form_method.append(inputimg)
+                    form_method.append(imgTd)
                     form_method.append(inputauthor)
                     form_method.append(inputPbDtTd)
                     form_method.append(inputdescription)
                     form_method.append(ISBNTd)
-                    form_method.append(detailTd)
+
 
                     div.append(form_method)
+                    div.append(titleTd)
+                    div.append(authorTd)
+                    div.append(PbDtTd)
 
                     bookCard.append(div)
 
