@@ -1,12 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Search results for: "{{ request.GET.q }}":</h2>
+
 <div class="row lastBooksContainer">
+    <div id="pagination"></div>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
 
 
         <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
             crossorigin="anonymous"></script>
+
         <script type="text/javascript">
             var key = "{{request.GET.q}}"
             $.ajax({
@@ -18,9 +26,11 @@
                 dataType: "json",
                 headers: {Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9"},
                 success: function (result) {
+                        let container = $('#pagination');
                     $.each(result.documents, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
-                        var bookCard = $("<div></div").attr({"class" : "col-md-4 bookCard"})
-                        var div = $("<div></div").attr({"class" : "cardBorder"})
+
+                        var bookCard = $("<div></div>").attr({"class" : "col-md-4 bookCard"})
+                        var div = $("<div></div>").attr({"class" : "cardBorder"})
 
                         var isbn = item.isbn.slice(-13)
                         isbn *= 1
@@ -70,18 +80,26 @@
                         bookCard.append(div)
 
                         $(".row:last").append(bookCard)
-
                     })
+                    container.pagination({
+                        dataSource : $('.row')
+                        callback :
+                })
 
                 },
                 error: function (request, status, error) {
                     alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
                     console.log(error)
                 },
-            })
+
+
+                });
+
 
         </script>
     </div>
+
+<ul id="pagination-demo" class="pagination-sm"></ul>
 </div>
 
 {% endblock content %}
