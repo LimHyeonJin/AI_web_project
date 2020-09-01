@@ -24,25 +24,21 @@
 <div class="row lastBooksContainer">
     {% for book in book_list %}
     <div class="col-md-4 bookCard">
-        <div class="cardBorder">
-            <img class="book_image" src="{{ book.image }}" alt="Book image">
-            <h5>{{ book.title }}</h5>
-            <h6>{{ book.author }}</h6>
-            {% if book.actual_rating %}
-            {% for rate in book.actual_rating %}
-            <span class="fa fa-star checked"></span>
-            {% endfor %} <br>
-            {% else %}
-            <h6>Nobody rated</h6>
-            {% endif %}
-            <br>
-            <br>
-            <br>
-            <div class="btn-toolbar; text-center">
-                <div style="float:none"></div>
-                <a href="{% url 'bookDetail' slug=book.slug %}"><button class="btn btn-outline-secondary btn-xs mr-2">Book detail</button></a>
-                <a href="{% url 'map' slug=book.slug %}" class="btn btn-outline-secondary btn-xs"> Map </a>
+        <div class="cardBorder" , style="height: 100%;overflow:auto;">
+            <div>
+                <a href="{% url 'bookDetail' slug=book.slug %}"><img class="book_image" src="{{ book.image }}" alt="Book image"></a>
+                <br><br>
+                <h5>{{ book.title }}</h5>
+                <h6>{{ book.author }}</h6>
+                {% if book.actual_rating %}
+                {% for rate in book.actual_rating %}
+                <span class="fa fa-star checked"></span>
+                {% endfor %} <br>
+                {% else %}
+                <h6>Nobody rated</h6>
+                {% endif %}
             </div>
+
         </div>
     </div>
     {% endfor %}
