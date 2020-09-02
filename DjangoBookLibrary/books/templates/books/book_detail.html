@@ -28,7 +28,6 @@
         {% endif %}
 
         <br><br>
-        <a href="{% url 'map' slug=book.slug %}" class="btn btn-light btn-xs"> Map! </a>
 
     </div>
     <div class="col-md-8">
@@ -87,29 +86,8 @@
 
 </div>
 
-<!--<td>-->
-<!--<button type='button' onclick="pg('p',this);">+</button>-->
-<!--<input type='text' name="pp" value="0" readonly="readonly" />-->
-<!--<button type='button' onclick="pg('m',this);">-</button>-->
-<!--</td>-->
 
-<!--<script>-->
-<!--function pg(type, ths) {-->
-<!--    var tinput = $(ths).parents("td").find("input[name='pp']");-->
-<!--    var tCount = Number(tinput.val());-->
-<!--    if (type=='p'){-->
-<!--        tinput.val(Number(tCount)+1);-->
-<!--        console.log('plus')-->
-<!--    }-->
-<!--    else{-->
-<!--        if(tCount>0) tinput.val((Number)-1);-->
-<!--        console.log('m')-->
-<!--    }-->
-<!--}-->
-<!--// </script>-->
-
-<!--<input type="button" id="myBtn" value="Open Modal">-->
-<button id="myBtn">Open Modal</button>
+<button id="myBtn" style="position: fixed; top: 430px; left:235px" >Open Map</button>
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
