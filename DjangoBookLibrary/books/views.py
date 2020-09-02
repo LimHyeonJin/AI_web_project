@@ -26,6 +26,7 @@ from .models import (
 
 # Create your views here.
 
+
 class HomeListView(ListView):
     template_name = 'books/home.html'
     model = Book
@@ -81,7 +82,12 @@ class BookDetailView(FormMixin, DetailView):
     def form_valid(self, form):
         b = self.get_object()
         text = form.cleaned_data['text']
-        new_comment = BookComment(text=text, book=b, user=self.request.user)
+        try:
+            new_comment = BookComment(
+                text=text, book=b, user=self.request.user, id=self.request.POST['id'])
+        except:
+            new_comment = BookComment(
+                text=text, book=b, user=self.request.user)
         new_comment.save()
         messages.success(self.request, "Your comment is added, thank you")
         return super().form_valid(form)
@@ -91,45 +97,6 @@ class BookDetailView(FormMixin, DetailView):
 def login_to_comment_redirect(request, slug):
     return redirect('bookDetail', slug=slug)
 
-
-class CommentCreateView(FormMixin, DetailView):
-    login_url = "login"
-    form_class = CommentCreateForm
-    template_name = 'book/book_detail.html'
-    success_url = reverse_lazy('comment_create')
-
-    def form_valid(self, form):
-        self.request.book.text = self.request.POST['comment']
-        self.request.book.user = self.request.POST['user']
-        self.request.book.text.save()
-        return super().form_valid(form)
-
-    def get_initial(self):
-        initial = super(CommentCreateView, self).get_initial()
-        initial['username'] = self.request.user.username
-        initial['email'] = self.request.user.email
-        return initial
-
-
-class CommentUpdateView(FormMixin, DetailView):
-    model = BookComment
-    fields = ('book', 'user', 'text')
-    login_url = "login"
-    form_class = CommentUpdateForm
-    template_name = 'book/book_detail.html'
-    success_url = reverse_lazy('comment_update')
-
-    def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        context = self.get_context_data(object=self.object, form=form)
-        return self.render_to_response(context)
-
-    def form_invalid(self, form, **kwargs):
-        context = self.get_context_data(**kwargs)
-        context['form'] = form
-        return self.render_to_response(context)
 
 def rate_book_view(request, slug, rating):
     try:

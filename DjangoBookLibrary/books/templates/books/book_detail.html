@@ -59,11 +59,19 @@
                 <h6><strong>{{ comment.user.username }}</strong></h6>
                 <h6 class="comment_text">{{ comment.text }}</h6>
                 <br>
-                <form action="book/<slug:slug>/<update>/<int:comment_id>/" method="post">
+                
+                {% if user.id == comment.user_id %}
+                <form method="post">
                 {% csrf_token %}
                 <input type="submit" value="Modify your comment" class="btn btn-outline-dark">
                     <input type="text" name="text" value="{{ comment.text }}"/>
+                    <input name= "id" type="hidden" value= "{{ comment.id }}"/>
                 </form>
+                {% else %}
+                <div>
+
+                </div>
+                {% endif %}
             </div>
             <hr class="my-4">
             {% endfor %}
