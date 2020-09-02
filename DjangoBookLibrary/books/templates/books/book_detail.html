@@ -55,11 +55,15 @@
             <h6>Comments({{ book.comments.count }})</h6>
             {% for comment in comments %}
             <br>
-            <div>
+            <div class="update">
                 <h6><strong>{{ comment.user.username }}</strong></h6>
                 <h6 class="comment_text">{{ comment.text }}</h6>
                 <br>
-                <button type="submit" class="btn btn-default">Modify your comment</button>
+                <form action="book/<slug:slug>/<update>/<int:comment_id>/" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Modify your comment" class="btn btn-outline-dark">
+                    <input type="text" name="text" value="{{ comment.text }}"/>
+                </form>
             </div>
             <hr class="my-4">
             {% endfor %}
