@@ -11,9 +11,10 @@
 
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
+    
 
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrk-j/paginga/v0.8.1/paginga.jquery.js"></script>
     <script type="text/javascript">
         var key = "{{request.GET.q}}"
         $.ajax({
@@ -75,7 +76,8 @@
 
                     bookCard.append(div)
 
-                    $(".row:last").append(bookCard)
+                    $(".row:last").append(bookCard) 
+                    // $(".items").append(bookCard)
 
 
                 })
@@ -87,6 +89,7 @@
             },
         })
 
+        // $(".paginate").paginga({ itemsPerPage: 9 });
     </script>
 
 </div>
