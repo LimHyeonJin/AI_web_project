@@ -14,6 +14,7 @@ from django.views.generic import (
 
 from .forms import (
     CommentForm,
+    CommentCreateForm,
     CommentUpdateForm
 )
 
@@ -24,6 +25,7 @@ from .models import (
 )
 
 # Create your views here.
+
 
 class HomeListView(ListView):
     template_name = 'books/home.html'
@@ -88,7 +90,12 @@ class BookDetailView(FormMixin, DetailView):
     def form_valid(self, form):
         b = self.get_object()
         text = form.cleaned_data['text']
-        new_comment = BookComment(text=text, book=b, user=self.request.user)
+        try:
+            new_comment = BookComment(
+                text=text, book=b, user=self.request.user, id=self.request.POST['id'])
+        except:
+            new_comment = BookComment(
+                text=text, book=b, user=self.request.user)
         new_comment.save()
         messages.success(self.request, "Your comment is added, thank you")
         return super().form_valid(form)
@@ -97,31 +104,6 @@ class BookDetailView(FormMixin, DetailView):
 @login_required(login_url='login')
 def login_to_comment_redirect(request, slug):
     return redirect('bookDetail', slug=slug)
-
-
-
-class CommentUpdateView(FormMixin, DetailView):
-    login_url = "login"
-    form_class = CommentUpdateForm
-    template_name = 'book/book_detail.html'
-    success_url = reverse_lazy('comment_update')
-
-    def form_valid(self, form):
-        self.request.book.text = self.request.POST['comment']
-        self.request.book.user = self.request.POST['user']
-        self.request.book.text.save()
-        return super().form_valid(form)
-
-    def get_initial(self):
-        initial = super(CommentUpdateView, self).get_initial()
-        initial['username'] = self.request.user.username
-        initial['email'] = self.request.user.email
-        return initial
-
-
-
-
-
 
 
 def rate_book_view(request, slug, rating):
