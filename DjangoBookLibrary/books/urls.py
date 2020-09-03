@@ -19,7 +19,6 @@ urlpatterns = [
     path('book/<slug:slug>/<rating>', rate_book_view, name='rate_book'),
     path('redirect-to-detail/<slug:slug>', login_to_comment_redirect,
          name='login_to_comment_redirect'),
-
     path('<slug:slug>/map_lib/', Maplib, name='map'),
 
 ]

@@ -3,13 +3,10 @@
 {% block content %}
 <script>
     function btn_click() {
-
-            $('#btn2').show();
-            $('#btn3').show();
-            
-            $('#btn1').hide();
-            $('#btn4').hide();
-    
+        $('#btn2').show();
+        $('#btn3').show();
+        $('#btn1').hide();
+        $('#btn4').hide();
     }
 </script>
 <div class="row">
@@ -34,8 +31,8 @@
         <a href="{% url 'rate_book' slug=book.slug rating=5 %}">5</a> <br>
         <a href="#commentBox">Num of comments ({{ book.comments.count }})</a>
         {% else %}
-            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
-                <button class="btn btn-outline-secondary btn-xs">Add star (login)</button></a>
+        <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
+            <button class="btn btn-outline-secondary btn-xs">Add star (login)</button></a>
         {% endif %}
 
         <br><br>
@@ -48,7 +45,9 @@
         <p> {{ book.description }}</p>
         <hr class="my-4">
         <div id="commentBox">
-            <button id="myBtn" style="cursor:pointer; border-color:#D3D3D3; border-radius:0.5em;"><img src="https://www.creativefabrica.com/wp-content/uploads/2018/11/Book-map-pin-location-logo-by-hartgraphic-580x386.jpg" width="170px", hight="130px"></button>
+            <button id="myBtn" style="cursor:pointer; border-color:#D3D3D3; border-radius:0.5em;"><img
+                    src="https://www.creativefabrica.com/wp-content/uploads/2018/11/Book-map-pin-location-logo-by-hartgraphic-580x386.jpg"
+                    width="170px" , hight="130px"></button>
             <hr class="my-4">
             {% if user.is_authenticated %}
             <form method="post" class="formsWidth">
@@ -58,7 +57,8 @@
             </form>
 
             {% else %}
-            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-outline-secondary btn-xs">Add
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button
+                    class="btn btn-outline-secondary btn-xs">Add
                     comment (login)</button></a>
             {% endif %}
 
@@ -72,30 +72,27 @@
                 <h6 id="btn1" class="comment_text">{{ comment.text }}</h6>
 
                 {% if user.id == comment.user_id %}
-                
                 <form method="post">
                     {% csrf_token %}
                     <input id="btn2" type="text" style="display: none;" name="text" value="{{ comment.text }}" />
                     <br>
                     <input id="btn3" style="display: none;" type="submit" value="Modify your comment"
-                        class="btn btn-outline-dark"/>
+                        class="btn btn-outline-dark" />
                     <input name="id" type="hidden" value="{{ comment.id }}" />
                 </form>
-                <input type="button" id="btn4" onclick="btn_click()" class="btn btn-outline-dark" value="Modify your comment"></button>
+                <input type="button" id="btn4" onclick="btn_click()" class="btn btn-outline-dark"
+                    value="Modify your comment"></button>
                 {% endif %}
+
             </div>
             <hr class="my-4">
             {% endfor %}
             {% else %}
             <br><br>
             <h6>No comments here yet</h6>
-
             {% endif %}
         </div>
     </div>
-
-
-
 </div>
 
 
@@ -110,35 +107,21 @@
             <div id="map" style="width:100%; height:100%; position:relative; overflow:hidden;"></div>
 
             <div id="menu_wrap" class="bg_white">
-                <div class="option">
-
-                </div>
+                <div class="option"></div>
                 <hr>
                 <ul id="placesList"></ul>
                 <div id="pagination"></div>
 
             </div>
-            <!--                <form>-->
-            <!--                        <input type=hidden name=amount value = 1 id="countid">-->
-            <!--                        <input type=button id="plus" value="다음" onClick="javascript:this.form.amount.value++;">-->
-            <!--                        <input type=button value="이전" onClick="javascript:this.form.amount.value&#45;&#45;;">-->
-            <!--                </form>-->
         </div>
-
     </div>
-
-
 </div>
-
-
-
 
 <script>
     var modal = document.getElementById('myModal');
 
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
-
     var modal_content = document.getElementsByClassName("modal-content")[0];
 
     // Get the <span> element that closes the modal
@@ -150,11 +133,9 @@
         if (modal_content.innerText == "") {
             alert('해당 도서를 소지한 도서관이 없습니다.')
         }
-
         else {
             modal.style.display = "block";
         }
-
     }
 
     // When the user clicks on <span> (x), close the modal
@@ -180,36 +161,29 @@
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a25e3f461e21becf81f9f64bc8294ee&libraries=services,clusterer,drawing"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
     integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-
 <script>
-
     function positions() {
         var key = "{{book.slug}}"
         var count_key = 0
-        // var countkey = $("#countid").val();
-        // "pageNO" + countkey
-        // console.log(countkey)
         var a = []
         $.ajax({
-            async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/libSrchByBook?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&region=11&pageSize=200&format=json&isbn=" + key,
+            async: false,
+            url: "http://data4library.kr/api/libSrchByBook?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&region=11&pageSize=200&format=json&isbn=" + key,
             type: "GET",
             timeout: 3000,
-            dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
-            success: function (result) {   // 서버가 주는 데이터 : result
+            dataType: "json",
+            success: function (result) {
 
                 if (result.response.resultNum == 0) {
                     $(".modal-content").empty()
                 }
 
                 else {
-                    $.each(result.response.libs, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
-
+                    $.each(result.response.libs, function (idx, item) {
                         var libcode = item.lib.libCode
                         var rent = call_rent(libcode, key)
 
                         if (rent == 'Y' && count_key < 15) {
-
                             var b = {}
                             b['place_name'] = item.lib.libName
                             b['road_address_name'] = item.lib.address
@@ -226,14 +200,9 @@
                             count_key += 1;
                             console.log(count_key)
                         }
-
-
                     })
-
                 }
-            }
-            ,
-
+            },
             error: function (request, status, error) {
                 alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
                 console.log(error)
@@ -246,7 +215,7 @@
         var rent_avail
         $.ajax({
             async: false, // ajax sync를 동기 방식으로 할지, 비동기 방식으로 할지  비동기 방식의 호출은 true!
-            url: "http://data4library.kr/api/bookExist?authKey=7c13c92835efd61acbd29f0c063681edc677826e63789b00c1c48d2c9bd49440&format=json&libCode=" + libcode + "&isbn13=" + ISBN,
+            url: "http://data4library.kr/api/bookExist?authKey=6933bb3911c27b1bb03b529fcf3e4789b8b2e91c9c059689910963272f861062&format=json&libCode=" + libcode + "&isbn13=" + ISBN,
             type: "GET",
             timeout: 3000,
             dataType: "json",  // 결과 JSON을 JavaScript객체로 변환
@@ -260,9 +229,6 @@
 
 
 <script>
-
-
-
     var markers = []; // marker 빈 리스트 생성
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
     var positions = positions();
@@ -271,7 +237,6 @@
         mapOption = {
             center: new kakao.maps.LatLng(37.509581, 127.05531), // 지도의 중심좌표
             level: 3, // 지도의 확대 레벨
-
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -321,19 +286,12 @@
             // 해당 장소에 인포윈도우에 장소명을 표시합니다
             // mouseout 했을 때는 인포윈도우를 닫습니다
             (function (marker, title, place) {
-                // kakao.maps.event.addListener(marker, 'mouseover', function() {
-                //     displayInfowindow(marker, title);
-                // });
                 kakao.maps.event.addListener(marker, 'mouseout', function () {
                     infowindow.close();
                 });
                 kakao.maps.event.addListener(marker, 'click', function () {
                     overlay(marker, place);
-                    // customOverlay(marker,place)
                 });
-                // itemEl.onmouseover =  function () {
-                //     displayInfowindow(marker, title);
-                // };
                 itemEl.onmouseout = function () {
                     infowindow.close();
                 };
@@ -477,12 +435,5 @@
             el.removeChild(el.lastChild);
         }
     }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 </script>
-
-
-
-
-
 {% endblock content %}

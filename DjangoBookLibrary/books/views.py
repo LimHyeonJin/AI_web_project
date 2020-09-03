@@ -26,7 +26,6 @@ from .models import (
 
 # Create your views here.
 
-
 class HomeListView(ListView):
     template_name = 'books/home.html'
     model = Book
@@ -37,7 +36,6 @@ class HomeListView(ListView):
 
 
 def SearchBookListView(request):
-
     if request.method == 'POST':
         book_form = Book()
         book_form.id = int(request.POST['isbn'])
@@ -54,12 +52,9 @@ def SearchBookListView(request):
             pass
 
         book_form.save()
-
         return redirect('bookDetail', slug=book_form.slug)
-
     else:
         pass
-
     return render(request, "books/book_search_result.html")
 
 
@@ -116,7 +111,6 @@ def rate_book_view(request, slug, rating):
             b.save()
             messages.success(
                 request, 'You rated a book: ' + b.title)
-
         else:
             messages.warning(
                 request, 'You already rated this book')
@@ -127,7 +121,5 @@ def rate_book_view(request, slug, rating):
 
 
 def Maplib(request, slug):
-
     context = {"slug" : slug}
-
     return render(request, 'maps/map_lib.html', context)

@@ -9,12 +9,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     FormView,
-    TemplateView)
-
+    TemplateView
+)
 from .forms import (
-    ProfileUpdateForm,
     UserRegisterForm,
-    UserUpdateForm)
+    UserUpdateForm
+)
 from books.models import BookReview, Book
 
 # Create your views here.
@@ -26,19 +26,20 @@ class SignUpView(CreateView):
     template_name = 'users/signup.html'
     success_message = "Now you are registered, try to log in!"
 
+
 def UserDetailView(request):
     login_url = "login"
     book = Book.objects.all()
     book_review = BookReview.objects.all()
     template_name = 'users/user_detail.html'
-    context = {"login_url" : login_url, "book" : book, "book_review" : book_review}
+    context = {"login_url": login_url,
+               "book": book, "book_review": book_review}
     return render(request, template_name, context)
 
 
 class UserUpdateView(LoginRequiredMixin, FormView):
     login_url = "login"
     form_class = UserUpdateForm
-    p_form = ProfileUpdateForm()
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('UserProfile')
     success_message = "Now your profile is updated!"
@@ -58,7 +59,6 @@ class UserUpdateView(LoginRequiredMixin, FormView):
 
 class ProfileUpdateView(LoginRequiredMixin, FormView):
     login_url = "login"
-    form_class = ProfileUpdateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('UserProfile')
     success_message = "Now you profile is updated"

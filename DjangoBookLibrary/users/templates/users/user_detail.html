@@ -2,13 +2,11 @@
 {% block content %}
 <div class="row">
     <div class="col-md-3">
-
         <div class="username">
             <h4>
                 <strong>{{ user.username }}</strong>
             </h4>
             <a href="{% url 'UserUpdate' %}"><button class="btn btn-outline-dark disabled profile_buttons">Edit my profile</button></a>
-
         </div>
         <div class="profile_info">
             <br>
@@ -16,7 +14,6 @@
             <p><strong>Last login date </strong><br>{{ user.last_login|date:"F j, Y" }}</p>
             <p><strong>Email </strong><br>{{ user.email }}</p>
         </div>
-
     </div>
 
     <div class="col-md-9">
@@ -45,7 +42,6 @@
                 {% endif%}
             {% endfor %}
         </table>
-
     </div>
 </div>
 {% endblock content %}

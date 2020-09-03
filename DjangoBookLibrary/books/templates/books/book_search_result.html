@@ -11,7 +11,6 @@
 
 <h2>Search results for: "{{ request.GET.q }}":</h2>
 <div class="row lastBooksContainer">
-    
 
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="https://cdn.rawgit.com/mrk-j/paginga/v0.8.1/paginga.jquery.js"></script>
@@ -26,7 +25,7 @@
             dataType: "json",
             headers: { Authorization: "KakaoAK 975917afd98807b54fb0a8eb6009dbf9" },
             success: function (result) {
-                $.each(result.documents, function (idx, item) {  // for문과 동일한 방식이다. 각각의 result에 대해 function을 수행
+                $.each(result.documents, function (idx, item) {
                     var bookCard = $("<div></div").attr({ "class": "col-md-4 bookCard" })
                     var div = $("<div></div").attr({ "class": "cardBorder" })
 
@@ -68,7 +67,6 @@
                     form_method.append(inputdescription)
                     form_method.append(ISBNTd)
 
-
                     div.append(form_method)
                     div.append(titleTd)
                     div.append(authorTd)
@@ -76,23 +74,18 @@
 
                     bookCard.append(div)
 
-                    $(".row:last").append(bookCard) 
+                    $(".row:last").append(bookCard)
                     // $(".items").append(bookCard)
 
-
                 })
-
             },
             error: function (request, status, error) {
                 alert("code = " + request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
                 console.log(error)
             },
         })
-
         // $(".paginate").paginga({ itemsPerPage: 9 });
     </script>
-
 </div>
 </div>
-
 {% endblock content %}

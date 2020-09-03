@@ -37,19 +37,10 @@ class Book(models.Model):
         else:
             return 0
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.title)
-    #     super(Book, self).save(*args, **kwargs)
-    #     img = Image.open(self.image.path)
-    #
-    #     if img.height > 200 or img.width > 200:
-    #         output_size = (150, 300)
-    #         img.thumbnail(output_size)
-    #         img.save(self.image.path)
-
 
 class BookReview(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews')
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     rating = models.IntegerField()
 
@@ -62,7 +53,8 @@ class BookReview(models.Model):
 
 
 class BookComment(models.Model):
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='comments')
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     text = models.CharField(max_length=300)
 
