@@ -34,8 +34,8 @@
         <a href="{% url 'rate_book' slug=book.slug rating=5 %}">5</a> <br>
         <a href="#commentBox">Num of comments ({{ book.comments.count }})</a>
         {% else %}
-        <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
-            <button class="btn btn-light btn-xs">Add star (login)</button></a>
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}">
+                <button class="btn btn-outline-secondary btn-xs">Add star (login)</button></a>
         {% endif %}
 
         <br><br>
@@ -48,19 +48,20 @@
         <p> {{ book.description }}</p>
         <hr class="my-4">
         <div id="commentBox">
+            <button id="myBtn" style="cursor:pointer; border-color:#D3D3D3; border-radius:0.5em;"><img src="https://www.creativefabrica.com/wp-content/uploads/2018/11/Book-map-pin-location-logo-by-hartgraphic-580x386.jpg" width="170px", hight="130px"></button>
+            <hr class="my-4">
             {% if user.is_authenticated %}
             <form method="post" class="formsWidth">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <button type="submit" class="btn btn-dark">Add comment</button>
+                <button type="submit" class="btn btn-outline-secondary btn-xs">Add comment</button>
             </form>
 
             {% else %}
-            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button
-                    class="btn btn-dark disabled btn-xs">Add
+            <a href="{% url 'login_to_comment_redirect' slug=book.slug %}"><button class="btn btn-outline-secondary btn-xs">Add
                     comment (login)</button></a>
             {% endif %}
-            
+
             {% if comments %}
             <br><br>
             <h6>Comments({{ book.comments.count }})</h6>
@@ -97,8 +98,6 @@
 
 </div>
 
-
-<button id="myBtn" style="position: fixed; top: 430px; left:235px">Open Map</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
