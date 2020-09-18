@@ -20,8 +20,8 @@
         <h2>Your books:</h2>
         <table style="width:100%" id="books">
             <tr>
-                <th>Title</th>
-                <th>My Rate</th>
+                <th style="background-color: #452350">Title</th>
+                <th style="background-color: #452350">My Rate</th>
             </tr>
             {% for bookreview in book_review %}
                 {% if bookreview.user_id ==  user.id %}
